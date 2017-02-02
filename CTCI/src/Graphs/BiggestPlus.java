@@ -34,7 +34,9 @@ public class BiggestPlus {
 		int biggest = 0;
 		for(int r = 1; r < grid.length-1; r++){
 			for(int c = 1; c < grid[r].length-1; c++){
+				// Center is occupied 
 				if(grid[r][c]){
+					// It's neighbors are also occupied
 					if(grid[r+1][c] && grid[r-1][c]
 							&& grid[r][c-1] && grid[r][c+1]){
 						//Perform DFS
@@ -44,6 +46,7 @@ public class BiggestPlus {
 						dir[2] = DFS(r, c, Direction.LEFT);
 						dir[3] = DFS(r, c, Direction.RIGHT);
 						int bottleNeck = dir[0];
+						// Find the bottle neck peg
 						for(int d : dir){
 							if(d < bottleNeck){
 								bottleNeck = d;
