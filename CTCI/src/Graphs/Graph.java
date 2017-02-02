@@ -29,33 +29,31 @@ public class Graph {
 	}
 
 	public void topoSort(Object o) {
-		int discoverTime = 0;
 		Node current = getNode(o);
-		topoHelper(current, discoverTime);
+		topoHelper(current);
 		while (!finished.isEmpty()) {
 			System.out.print(finished.pop() + ", ");
 		}
 		System.out.println();
 	}
 
-	public void topoHelper(Node n, int time) {
+	public void topoHelper(Node n) {
 		ArrayList<Node> edges = n.getEdges();
-		int t = time;
 		// Potential Bug, Base Case
 		if (n.getEdges().isEmpty()) {
-			n.setFinishTime(t);
+			n.setFinished();
 			finished.push(n);
 			return;
 		}
 		// Itterate the edges and visit
 		for (Node e : edges) {
 			// Only visit is it has not finished
-			if (e.getFinishTime() == -1) {
-				topoHelper(e, t++);
+			if (!e.isFinished()) {
+				topoHelper(e);
 			}
 		}
 		finished.push(n);
-		n.setFinishTime(t);
+		n.setFinished();
 	}
 
 	public void printNodes() {
@@ -98,13 +96,13 @@ public class Graph {
 
 	class Node {
 		Object val;
-		int finish;
+		boolean finished;
 		ArrayList<Node> edges;
 
 		public Node(Object val) {
 			this.val = val;
 			this.edges = new ArrayList<Node>();
-			this.finish = -1;
+			this.finished = false;
 		}
 
 		public void addEdge(Node n) {
@@ -120,12 +118,12 @@ public class Graph {
 			return null;
 		}
 
-		public int getFinishTime() {
-			return finish;
+		public boolean isFinished() {
+			return finished;
 		}
 
-		public void setFinishTime(int f) {
-			this.finish = f;
+		public void setFinished() {
+			this.finished = true;
 		}
 
 		public ArrayList<Node> getEdges() {
