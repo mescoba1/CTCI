@@ -18,8 +18,6 @@ public class Graph {
 		g.addEdge('G', 'H');
 		g.addEdge('H', 'I');
 		g.topoSort('A');
-		//Node n = g.getNode('E');
-		//n.printEdges();
 	}
 
 	ArrayList<Node> nodes;
@@ -80,7 +78,6 @@ public class Graph {
 		return null;
 	}
 
-	/* DOESNT WORK, figure out later.. */
 	public void addEdge(Object me, Object you) {
 		Node a = getNode(me);
 		if (a == null) {
@@ -95,6 +92,7 @@ public class Graph {
 			b = getNode(you);
 		}
 		a.addEdge(b);
+		/*This a DAG silly billy*/
 		//b.addEdge(a);
 	}
 
