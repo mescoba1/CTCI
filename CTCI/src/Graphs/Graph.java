@@ -13,15 +13,18 @@ public class Graph {
 		g.addEdge('C', 'F');
 		g.addEdge('F', 'G');
 		g.addEdge('E', 'D');
+		g.addEdge('E', 'F');
 		g.addEdge('D', 'G');
 		g.addEdge('G', 'H');
 		g.addEdge('H', 'I');
 		g.topoSort('A');
+		//Node n = g.getNode('E');
+		//n.printEdges();
 	}
 
 	ArrayList<Node> nodes;
 	Stack<Node> finished;
-	
+
 	public Graph() {
 		this.nodes = new ArrayList<Node>();
 		finished = new Stack<Node>();
@@ -31,16 +34,17 @@ public class Graph {
 		int discoverTime = 0;
 		Node current = getNode(o);
 		topoHelper(current, discoverTime);
-		while(!finished.isEmpty()){
-			System.out.println(finished.pop());
+		while (!finished.isEmpty()) {
+			System.out.print(finished.pop() + ", ");
 		}
+		System.out.println();
 	}
 
 	public void topoHelper(Node n, int time) {
 		ArrayList<Node> edges = n.getEdges();
 		int t = time;
-		//Potential Bug, Base Case
-		if (n.getEdges().isEmpty()){
+		// Potential Bug, Base Case
+		if (n.getEdges().isEmpty()) {
 			n.setFinishTime(t);
 			finished.push(n);
 			return;
@@ -91,7 +95,7 @@ public class Graph {
 			b = getNode(you);
 		}
 		a.addEdge(b);
-		b.addEdge(a);
+		//b.addEdge(a);
 	}
 
 	class Node {
@@ -138,7 +142,7 @@ public class Graph {
 		}
 
 		public String toString() {
-			return (String) val;
+			return ((char) val)+ "";
 		}
 	}
 }
